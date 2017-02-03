@@ -10,8 +10,8 @@ obstacle_height = 0.136 #m
 wheel_separation = 0.36 #m
 found_sweet_spot = False
 
-def approx(x, y):
-    return abs(abs(x)-abs(y)) < 0.001
+def approx(x, y, l):
+    return abs(abs(x)-abs(y)) < l
 
 def imu_callback(msg):
     global pitch_threshold, twist_publisher, cnt, obstacle_height, wheel_separation, found_sweet_spot
@@ -21,16 +21,17 @@ def imu_callback(msg):
     sweet_spot = math.sin(sweet_spot)
     sweet_spot = math.asin(sweet_spot)
     #print str(approx(sweet_spot, pitch))
-    if approx(sweet_spot, pitch):
+    if approx(sweet_spot, pitch, 0.01):
         found_sweet_spot = True
         print "SWEET SPOT = " + str(sweet_spot)
-    if found_sweet_spot and abs(pitch) > 0.05:
+    if found_sweet_spot and not approx(pitch, 0, 0.1):
         full_force = Twist()
         full_force.linear.x = 0.6
         twist_publisher.publish(full_force)
         print 'FULL FORCE!'
     elif found_sweet_spot:
         print 'NOW STOP!'
+	found_sweet_spot = False
         twist_publisher.publish(Twist())
     #twist_publisher.publish(Twist())
 
