@@ -1,2 +1,3 @@
 imu_topic: '/imu/data'
 twist_topic: '/assisted_teleop/cmd_vel'
+wheel_separation: 0.36
