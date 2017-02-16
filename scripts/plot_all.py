@@ -115,7 +115,7 @@ def init():
     lx_plot.set_title('Linear cmd_vel X')
     
     az_plot = plot_figure.add_subplot(3, 3, 5, sharex= accx_plot, sharey=lx_plot)
-    az_plot.set_title('Angular cmd_vel X')
+    az_plot.set_title('Angular cmd_vel Z')
 
     pose_plot = plot_figure.add_subplot(3, 3, 6)
     pose_plot.set_title('Robot Position')
