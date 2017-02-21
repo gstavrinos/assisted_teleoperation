@@ -22,21 +22,24 @@ def image_callback(msg):
     global imageview
     np_arr = np.fromstring(msg.data, np.uint8)
     image_np = cv2.imdecode(np_arr, cv2.CV_LOAD_IMAGE_COLOR)
-    #im = Image.fromarray(image_np)
-    imageview.setImage(image_np.transpose([2,1,0]))
-    #im.show()
-    #print msg
+    data = np.random.randint(255, size=(100, 100))
+    #imageview.setImage(image_np.transpose([2,1,0]))
+    imageview.setImage(data)
+    print image_np
 
-def init_GUI():
+def init_GUI(QMainWindow):
     global imageview, plot, w, app
+    pg.setConfigOptions(imageAxisOrder='row-major')
     app = QtGui.QApplication(sys.argv)
     w = QtGui.QWidget()
     layout = QtGui.QGridLayout()
-    imageview = pg.ImageView()
+    imageview = QtGui.QPixmap()
+    '''
     imageview.ui.histogram.hide()
     imageview.ui.roiBtn.hide()
     imageview.ui.menuBtn.hide()
     imageview.ui.roiPlot.hideAxis('bottom')
+    '''
     plot = pg.PlotWidget()
     w.resize(250, 150)
     w.move(300, 300)
