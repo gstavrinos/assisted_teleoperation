@@ -50,7 +50,7 @@ def init():
 
     plt.show()
     plt.draw()
-    plt.pause(0.0001)
+    #plt.pause(0.0001)
 
 
 if __name__ == '__main__':
@@ -62,16 +62,17 @@ if __name__ == '__main__':
     p = ax.plot(angularz, linearx, 'o', color='k', markersize=50)[0]
     l = ax.plot([0, angularz], [0, linearx], '-o', color='k', linestyle='-', linewidth=2)
     c = plt.Circle((0, 0), 1, color='k', fill=False)
+    ax.add_artist(c)
     while not rospy.is_shutdown():
         if prevx != linearx or prevz != angularz:
             p.set_data(angularz, linearx)
             l[0].set_data([0, angularz], [0, linearx])
-            plot.canvas.restore_region(background)
-            ax.add_artist(p)
-            ax.add_artist(l[0])
-            ax.add_artist(c)
+            #plot.canvas.restore_region(background)
+            #ax.add_artist(p)
+            #ax.add_artist(l[0])
             plot.canvas.blit(ax.bbox)
             prevx = linearx
             prevz = angularz
+            plot.canvas.flush_events()
 
     cv2.destroyAllWindows()
