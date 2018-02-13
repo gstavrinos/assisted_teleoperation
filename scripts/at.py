@@ -50,7 +50,7 @@ def assisted_teleop(pitch):
         now = time.time()
         if now - starting_time <= 2:
             full_force = Twist()
-            full_force.linear.x = 0.6
+            full_force.linear.x = 0.65
             twist_publisher.publish(full_force)
             print 'FULL FORCE!'
         else: # We are most probably past the sweet spot, so let's get slowly back
